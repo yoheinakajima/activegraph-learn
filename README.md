@@ -110,7 +110,11 @@ export default {
 .
 ├── index.html                       # shell: topbar, containers, font + CSS links, module entry
 ├── .nojekyll                        # tell GitHub Pages to serve files as-is
+├── .github/
+│   └── workflows/
+│       └── pages.yml                # GitHub Actions: deploy to Pages on push to main
 ├── assets/
+│   ├── favicon.svg                  # brand mark (teal node graph)
 │   ├── css/
 │   │   └── styles.css               # all styles (design tokens in :root)
 │   └── js/
@@ -168,52 +172,25 @@ There is no build step and nothing to install.
 ## Deploying to GitHub Pages
 
 The site is plain static files at the repo root, so Pages needs no configuration
-beyond being switched on.
+beyond being switched on. A deploy workflow is already included at
+[`.github/workflows/pages.yml`](.github/workflows/pages.yml).
 
-### Option A — deploy from a branch (simplest)
+### Go live (recommended — 1 click, then it's automatic)
 
-1. Push this repo to GitHub.
-2. **Settings → Pages**.
-3. Under **Build and deployment → Source**, choose **Deploy from a branch**.
-4. Select branch `main` (or your default) and folder **`/ (root)`**. Save.
-5. Wait ~1 minute; your site is live at
-   `https://<user>.github.io/<repo>/`.
+1. Merge this branch to `main`.
+2. **Settings → Pages → Build and deployment → Source → "GitHub Actions"**.
 
-The `.nojekyll` file is already included so GitHub serves `assets/` verbatim
-instead of running it through Jekyll.
+That's it. The included workflow runs on every push to `main` (and can be triggered
+by hand from the **Actions** tab), uploads the repo root as-is, and deploys. Your
+site appears at `https://<user>.github.io/<repo>/` within a minute or two; the live
+URL is also printed on the workflow run's summary page.
 
-### Option B — deploy with GitHub Actions
+### Alternative — deploy from a branch (no Actions)
 
-If you prefer the Actions-based flow, set **Source** to **GitHub Actions** and add
-`.github/workflows/pages.yml`:
-
-```yaml
-name: Deploy Pages
-on:
-  push:
-    branches: [main]
-permissions:
-  contents: read
-  pages: write
-  id-token: write
-concurrency:
-  group: pages
-  cancel-in-progress: true
-jobs:
-  deploy:
-    runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/configure-pages@v5
-      - uses: actions/upload-pages-artifact@v3
-        with:
-          path: .                 # upload the repo root as-is
-      - id: deployment
-        uses: actions/deploy-pages@v4
-```
+If you'd rather not use Actions, set **Source** to **Deploy from a branch**, pick
+`main` and folder **`/ (root)`**, and save. The `.nojekyll` file is included so
+GitHub serves `assets/` verbatim instead of running it through Jekyll. (You can
+delete the workflow file if you go this route.)
 
 ### Pointing `learn.activegraph.ai` at it
 

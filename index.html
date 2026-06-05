@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>activegraph / learn</title>
+<meta name="description" content="Interactive tutorials for activegraph — the event-sourced reactive graph runtime for long-running, auditable agents." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=Hanken+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/styles.css">
+</head>
+<body>
+<!-- topbar -->
+<div class="topbar">
+  <button class="menu-btn" id="menuBtn" aria-label="menu">☰</button>
+  <a class="brand" href="#/"><span class="dot"></span>activegraph<span class="slash">/</span><span class="sub">learn</span></a>
+  <div class="top-links">
+    <a class="hideable" href="https://docs.activegraph.ai" target="_blank" rel="noopener">Docs</a>
+    <a class="hideable" href="https://arxiv.org/abs/2605.21997" target="_blank" rel="noopener">Paper</a>
+    <a class="hideable" href="https://github.com/yoheinakajima/activegraph" target="_blank" rel="noopener">GitHub</a>
+    <button class="gloss-btn" id="glossBtn">Glossary <span class="k">G</span></button>
+  </div>
+</div>
+
+<!-- HOME (shown for #/) -->
+<div id="home" class="home" style="display:none"></div>
+
+<!-- TUTORIAL shell (shown for lesson routes) -->
+<div id="shell" class="shell" style="display:none">
+  <aside class="sidebar" id="sidebar"></aside>
+  <main class="main"><div class="wrap" id="content"></div></main>
+</div>
+
+<!-- glossary -->
+<div class="gloss-scrim" id="glossScrim"></div>
+<aside class="gloss" id="glossPanel"></aside>
+
+<script type="module" src="assets/js/app.js"></script>
+</body>
+</html>
